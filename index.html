@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウンセリング予約フォーム</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 550px;
+      padding: 20px;
+    }
+    h1 {
+      background: linear-gradient(135deg, #13ca5e, #0fa958);
+      color: #fff;
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .label {
+      font-weight: 600;
+      background-color: #13ca5e;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+    .required {
+      background: #ff3b3b;
+      color: #fff;
+      border-radius: 3px;
+      padding: 2px 5px;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .button-group button {
+      flex: 1 1 calc(33.3% - 10px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f7f7f7;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .button-group button.active {
+      background: #13ca5e;
+      color: #fff;
+    }
+    .submit-button {
+      width: 100%;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 17px;
+      margin-top: 25px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>LE;SERA銀座店<br>カウンセリング予約フォーム</h1>
+
+    <div class="label">お名前<span class="required">必須</span></div>
+    <input type="text" id="name" placeholder="お名前を入力してください">
+
+    <div class="label">電話番号<span class="required">必須</span></div>
+    <input type="tel" id="phone" placeholder="電話番号を入力してください">
+
+    <div class="label">性別<span class="required">必須</span></div>
+    <div class="button-group" id="genderButtons">
+      <button type="button" onclick="selectButton(this,'gender')">男性</button>
+      <button type="button" onclick="selectButton(this,'gender')">女性</button>
+    </div>
+
+    <div class="label">年齢<span class="required">必須</span></div>
+    <div class="button-group" id="ageButtons">
+      <button type="button" onclick="selectButton(this,'age')">10代</button>
+      <button type="button" onclick="selectButton(this,'age')">20代</button>
+      <button type="button" onclick="selectButton(this,'age')">30代</button>
+      <button type="button" onclick="selectButton(this,'age')">40代</button>
+      <button type="button" onclick="selectButton(this,'age')">50代</button>
+      <button type="button" onclick="selectButton(this,'age')">60代以上</button>
+    </div>
+
+    <div class="label">肌のお悩み<span class="required">必須</span></div>
+    <div class="button-group" id="skinButtons">
+      <button onclick="toggleMulti(this,'skin')">ニキビ</button>
+      <button onclick="toggleMulti(this,'skin')">ニキビ跡</button>
+      <button onclick="toggleMulti(this,'skin')">肌荒れ</button>
+      <button onclick="toggleMulti(this,'skin')">シミ</button>
+      <button onclick="toggleMulti(this,'skin')">そばかす</button>
+      <button onclick="toggleMulti(this,'skin')">小シワ</button>
+      <button onclick="toggleMulti(this,'skin')">たるみ</button>
+      <button onclick="toggleMulti(this,'skin')">赤ら顔</button>
+      <button onclick="toggleMulti(this,'skin')">キメが荒い</button>
+      <button onclick="toggleMulti(this,'skin')">毛穴が目立つ</button>
+      <button onclick="toggleMulti(this,'skin')">くすみ</button>
+      <button onclick="toggleMulti(this,'skin')">頬</button>
+      <button onclick="toggleMulti(this,'skin')">フェイスライン</button>
+      <button onclick="toggleMulti(this,'skin')">その他</button>
+    </div>
+
+    <div class="label">身体のお悩み<span class="required">必須</span></div>
+    <div class="button-group" id="bodyButtons">
+      <button onclick="toggleMulti(this,'body')">二の腕</button>
+      <button onclick="toggleMulti(this,'body')">背中</button>
+      <button onclick="toggleMulti(this,'body')">お腹</button>
+      <button onclick="toggleMulti(this,'body')">腰回り</button>
+      <button onclick="toggleMulti(this,'body')">ヒップライン</button>
+      <button onclick="toggleMulti(this,'body')">太もも裏</button>
+      <button onclick="toggleMulti(this,'body')">太もも表</button>
+      <button onclick="toggleMulti(this,'body')">ふくらはぎ</button>
+      <button onclick="toggleMulti(this,'body')">たるみが気になる</button>
+      <button onclick="toggleMulti(this,'body')">セルライトが気になる</button>
+      <button onclick="toggleMulti(this,'body')">その他</button>
+    </div>
+
+    <div class="label">アレルギーの有無（任意）</div>
+    <textarea id="allergy" rows="2" placeholder="自由にご記入ください"></textarea>
+
+    <div class="label">常用薬の有無（任意）</div>
+    <textarea id="medicine" rows="2" placeholder="自由にご記入ください"></textarea>
+
+    <div class="label">化粧品トラブル経験（任意）</div>
+    <textarea id="cosmetic" rows="2" placeholder="自由にご記入ください"></textarea>
+
+    <div class="label">エステサロントラブル経験（任意）</div>
+    <textarea id="salon" rows="2" placeholder="自由にご記入ください"></textarea>
+
+    <button class="submit-button" onclick="submitForm()">送信</button>
+  </div>
+
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <script>
+    let formSelections = {
+      gender: '',
+      age: '',
+      skin: [],
+      body: []
+    };
+
+    function selectButton(el, key) {
+      document.querySelectorAll(`#${key}Buttons button`).forEach(btn => btn.classList.remove('active'));
+      el.classList.add('active');
+      formSelections[key] = el.innerText;
+    }
+
+    function toggleMulti(el, key) {
+      el.classList.toggle('active');
+      const value = el.innerText;
+      if (formSelections[key].includes(value)) {
+        formSelections[key] = formSelections[key].filter(v => v !== value);
+      } else {
+        formSelections[key].push(value);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      liff.init({ liffId: "2005254357-zKma9BZk" })
+      .then(() => console.log("LIFF初期化成功"))
+      .catch(err => console.error("LIFF初期化失敗", err));
+    });
+
+    function submitForm() {
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const allergy = document.getElementById("allergy").value.trim();
+      const medicine = document.getElementById("medicine").value.trim();
+      const cosmetic = document.getElementById("cosmetic").value.trim();
+      const salon = document.getElementById("salon").value.trim();
+
+      if (!name) return alert("お名前を入力してください。");
+      if (!phone) return alert("電話番号を入力してください。");
+      if (!formSelections.gender) return alert("性別を選択してください。");
+      if (!formSelections.age) return alert("年齢を選択してください。");
+      if (formSelections.skin.length === 0) return alert("肌のお悩みを選択してください。");
+      if (formSelections.body.length === 0) return alert("身体のお悩みを選択してください。");
+
+      const text =
+`≪カウンセリング予約フォーム≫
+【お名前】${name}
+【電話番号】${phone}
+【性別】${formSelections.gender}
+【年齢】${formSelections.age}
+【肌のお悩み】${formSelections.skin.join("・")}
+【身体のお悩み】${formSelections.body.join("・")}
+【アレルギーの有無】${allergy || "（未記入）"}
+【常用薬の有無】${medicine || "（未記入）"}
+【化粧品トラブル経験】${cosmetic || "（未記入）"}
+【エステサロントラブル経験】${salon || "（未記入）"}`;
+
+      liff.sendMessages([{ type: "text", text }])
+        .then(() => {
+          alert("ご記入ありがとうございます。内容が送信されました。");
+          liff.closeWindow();
+        })
+        .catch(err => alert("送信に失敗しました: " + err));
+    }
+  </script>
+</body>
+</html>
